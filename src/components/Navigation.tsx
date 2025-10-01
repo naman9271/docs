@@ -408,7 +408,7 @@ export default function Navigation() {
                     Get Involved
                   </a>
                   <a
-                    href="#programs"
+                    href="/programs"
                     className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-cyan-900/30 rounded transition-all duration-200 hover:text-cyan-300 hover:shadow-md"
                   >
                     <svg
