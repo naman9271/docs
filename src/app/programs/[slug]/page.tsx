@@ -1,6 +1,6 @@
-import { getProgramById } from '../programs';
-import { notFound } from 'next/navigation';
-import ProgramPageClient from './ProgramPageClient';
+import { getProgramById } from "../programs";
+import { notFound } from "next/navigation";
+import ProgramPageClient from "./ProgramPageClient";
 
 interface PageProps {
   params: Promise<{

@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { getAllPrograms } from './programs';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect } from 'react';
-import Navigation from '../../components/Navigation';
-import Footer from '../../components/Footer';
-import StarField from '../../components/StarField';
+import { getAllPrograms } from "./programs";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect } from "react";
+import Navigation from "../../components/Navigation";
+import Footer from "../../components/Footer";
+import StarField from "../../components/StarField";
 
 export default function ProgramsPage() {
   const programs = getAllPrograms();
 
   useEffect(() => {
     // Add CSS for animations
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
       @keyframes twinkle {
         0%, 100% { opacity: 0.2; }
@@ -52,10 +52,10 @@ export default function ProgramsPage() {
       <div className="fixed inset-0 z-0">
         {/* Dark base background */}
         <div className="absolute inset-0 bg-[#0a0a0a]"></div>
-        
+
         {/* Starfield background */}
         <StarField density="medium" showComets={true} cometCount={3} />
-        
+
         {/* Grid lines background */}
         <div className="absolute inset-0 opacity-10 background-grid"></div>
       </div>
@@ -67,7 +67,8 @@ export default function ProgramsPage() {
             Join Our <span className="text-gradient">Mission</span>
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
-            Discover meaningful opportunities to contribute to KubeStellar and advance your career in open source development.
+            Discover meaningful opportunities to contribute to KubeStellar and
+            advance your career in open source development.
           </p>
         </div>
       </section>
@@ -76,14 +77,14 @@ export default function ProgramsPage() {
       <section id="programs" className="relative py-24 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-2">
-            {programs.map((program) => (
+            {programs.map(program => (
               <Link
                 key={program.id}
                 href={`/programs/${program.id}`}
                 className={`program-card bg-gray-800/50 backdrop-blur-md rounded-xl shadow-lg border border-gray-700/50 p-8 flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
-                  program.isPaid 
-                    ? 'hover:border-blue-500/50' 
-                    : 'hover:border-purple-500/50'
+                  program.isPaid
+                    ? "hover:border-blue-500/50"
+                    : "hover:border-purple-500/50"
                 }`}
               >
                 <div className="relative w-32 h-24 mb-6 flex items-center justify-center">
@@ -96,16 +97,20 @@ export default function ProgramsPage() {
                     priority
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">{program.fullName}</h3>
-                <p className="text-gray-400 mb-4 flex-grow">{program.description}</p>
-                <span 
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  {program.fullName}
+                </h3>
+                <p className="text-gray-400 mb-4 flex-grow">
+                  {program.description}
+                </p>
+                <span
                   className={`inline-block text-xs font-semibold px-3 py-1 rounded-full ${
-                    program.isPaid 
-                      ? 'bg-green-500/20 text-green-300' 
-                      : 'bg-purple-500/20 text-purple-300'
+                    program.isPaid
+                      ? "bg-green-500/20 text-green-300"
+                      : "bg-purple-500/20 text-purple-300"
                   }`}
                 >
-                  {program.isPaid ? 'Paid Program' : 'Unpaid Internship'}
+                  {program.isPaid ? "Paid Program" : "Unpaid Internship"}
                 </span>
               </Link>
             ))}
