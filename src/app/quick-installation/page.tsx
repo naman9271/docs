@@ -209,12 +209,10 @@ const faqData = [
 // Animated card component
 const AnimatedCard = ({
   children,
-  delay = 0,
   className = '',
   id,
 }: {
   children: React.ReactNode;
-  delay?: number;
   className?: string;
   id?: string;
 }) => {
@@ -530,7 +528,7 @@ const QuickInstallationPage = () => {
                   <ul className="space-y-2 text-blue-200">
                     <li className="flex items-start">
                       <ChevronRight size={16} className="mr-2 mt-0.5 flex-shrink-0 text-blue-400" />
-                      Self-contained script suitable for "curl-to-bash" usage
+                      Self-contained script suitable for &quot;curl-to-bash&quot; usage
                     </li>
                     <li className="flex items-start">
                       <ChevronRight size={16} className="mr-2 mt-0.5 flex-shrink-0 text-blue-400" />
