@@ -95,6 +95,25 @@ const platformInstallationScripts = {
   k3d: 'bash <(curl -s https://raw.githubusercontent.com/kubestellar/kubestellar/refs/tags/v0.27.2/scripts/create-kubestellar-demo-env.sh) --platform k3d'
 };
 
+// FAQ data
+const faqData = [
+  {
+    id: 1,
+    question: "What are the minimum system requirements for KubeStellar?",
+    answer: "KubeStellar requires Docker (v20.0+), kubectl (v1.27+), and either kind (v0.20+) or k3d for local clusters. At least 4GB RAM and 2 CPU cores are recommended for smooth operation."
+  },
+  {
+    id: 2,
+    question: "Can I use KubeStellar with existing Kubernetes clusters?",
+    answer: "Yes! KubeStellar can manage existing Kubernetes clusters. You can connect your production clusters alongside local development clusters for unified multi-cluster management."
+  },
+  {
+    id: 3,
+    question: "How long does the installation process typically take?",
+    answer: "The installation usually takes 35-40 minutes depending on your internet connection and system performance. Most of this time is spent downloading container images and setting up the cluster."
+  }
+];
+
 // Animated card component
 const AnimatedCard = ({
   children,
@@ -136,52 +155,6 @@ const CodeBlock = ({
       setTimeout(() => setCopied(false), 2000);
     });
   };
-
-// FAQ data
-const faqData = [
-  {
-    id: 1,
-    question: "What are the minimum system requirements for KubeStellar?",
-    answer: "KubeStellar requires Docker (v20.0+), kubectl (v1.27+), and either kind (v0.20+) or k3d for local clusters. At least 4GB RAM and 2 CPU cores are recommended for smooth operation."
-  },
-  {
-    id: 2,
-    question: "Can I use KubeStellar with existing Kubernetes clusters?",
-    answer: "Yes! KubeStellar can manage existing Kubernetes clusters. You can connect your production clusters alongside local development clusters for unified multi-cluster management."
-  },
-  {
-    id: 3,
-    question: "How long does the installation process typically take?",
-    answer: "The installation usually takes 5-10 minutes depending on your internet connection and system performance. Most of this time is spent downloading container images and setting up the cluster."
-  }
-];
-
-// FAQ Item Component
-const FAQItem = ({ faq }: { faq: typeof faqData[0] }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="border border-gray-700/50 rounded-lg bg-gray-800/50 backdrop-blur-md">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-700/30 transition-colors rounded-lg"
-      >
-        <h3 className="text-lg font-medium text-white pr-4">{faq.question}</h3>
-        <ChevronRight 
-          size={20} 
-          className={`text-gray-400 transition-transform duration-200 flex-shrink-0 ${
-            isOpen ? 'rotate-90' : ''
-          }`}
-        />
-      </button>
-      {isOpen && (
-        <div className="px-6 pb-6">
-          <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
-        </div>
-      )}
-    </div>
-  );
-};
 
   return (
     <div className="relative mb-4 overflow-hidden rounded-lg border border-gray-700/50 bg-gray-900/50">
@@ -508,23 +481,9 @@ const QuickInstallationPage = () => {
             />
             
             <div className="space-y-4">
-              <FAQItem faq={{
-                id: 1,
-                question: "What are the minimum system requirements for KubeStellar?",
-                answer: "KubeStellar requires Docker (v20.0+), kubectl (v1.27+), and either kind (v0.20+) or k3d for local clusters. At least 4GB RAM and 2 CPU cores are recommended for smooth operation."
-              }} />
-              
-              <FAQItem faq={{
-                id: 2,
-                question: "Can I use KubeStellar with existing Kubernetes clusters?",
-                answer: "Yes! KubeStellar can manage existing Kubernetes clusters. You can connect your production clusters alongside local development clusters for unified multi-cluster management."
-              }} />
-              
-              <FAQItem faq={{
-                id: 3,
-                question: "How long does the installation process typically take?",
-                answer: "The installation usually takes 5-10 minutes depending on your internet connection and system performance. Most of this time is spent downloading container images and setting up the cluster."
-              }} />
+              {faqData.map((faq) => (
+                <FAQItem key={faq.id} faq={faq} />
+              ))}
             </div>
           </AnimatedCard>
         </div>
