@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GridLines, StarField} from "../index";
+import { GridLines, StarField } from "../index";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -102,10 +102,7 @@ Google Groups: https://groups.google.com/g/kubestellar-dev`
       <StarField density="medium" showComets={true} cometCount={4} />
 
       {/* Grid lines background */}
-      <GridLines
-        horizontalLines={21}
-        verticalLines={15}
-      />
+      <GridLines horizontalLines={21} verticalLines={15} />
 
       {/* Background elements */}
       <div className="absolute inset-0 z-0 overflow-hidden">

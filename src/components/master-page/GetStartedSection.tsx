@@ -1,6 +1,6 @@
 "use client";
 
-import { GridLines, StarField} from "../index";
+import { GridLines, StarField } from "../index";
 
 const Icon = ({
   path,
@@ -37,10 +37,7 @@ export default function GetStartedSection() {
       <StarField density="medium" showComets={true} cometCount={3} />
 
       {/* Gridlines background */}
-      <GridLines
-        verticalLines={20}
-        horizontalLines={33}
-      />
+      <GridLines verticalLines={20} horizontalLines={33} />
 
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute top-2/5 left-2/11 w-[6rem] h-[6rem] bg-purple-500/10 rounded-full blur-[120px]"></div>

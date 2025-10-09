@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { GridLines, StarField} from "../index";
+import { GridLines, StarField } from "../index";
 import StatCard from "../StatsCard";
 
 interface StatData {
@@ -193,10 +193,7 @@ export default function HeroSection() {
 
         {/* Interactive Grid Network */}
         <div className="absolute inset-0">
-          <GridLines
-            verticalLines={15}
-            horizontalLines={18}
-          />
+          <GridLines verticalLines={15} horizontalLines={18} />
         </div>
 
         {/* Floating Data Particles */}
