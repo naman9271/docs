@@ -31,8 +31,34 @@ interface Prerequisite {
   versionCommand: string;
 }
 
-// Prerequisites data extracted from the existing installation page
-const prerequisites: Prerequisite[] = [
+// Define prerequisite category structure
+interface PrerequisiteCategory {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  prerequisites: Prerequisite[];
+}
+
+// Core prerequisites for using KubeStellar
+const corePrerequisites: Prerequisite[] = [
+  {
+    name: 'docker',
+    displayName: 'Docker',
+    description: 'Container runtime platform',
+    minVersion: '20.0.0',
+    installCommand: 'curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh',
+    installUrl: 'https://docs.docker.com/engine/install/',
+    versionCommand: 'docker version --format "{{.Client.Version}}"',
+  },
+  {
+    name: 'kubectl',
+    displayName: 'kubectl',
+    description: 'Kubernetes command-line tool',
+    minVersion: '1.27.0',
+    installCommand: 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x kubectl && sudo mv kubectl /usr/local/bin/',
+    installUrl: 'https://kubernetes.io/docs/tasks/tools/',
+    versionCommand: 'kubectl version --client',
+  },
   {
     name: 'kubeflex',
     displayName: 'KubeFlex',
@@ -60,15 +86,10 @@ const prerequisites: Prerequisite[] = [
     installUrl: 'https://helm.sh/docs/intro/install/',
     versionCommand: 'helm version',
   },
-  {
-    name: 'kubectl',
-    displayName: 'kubectl',
-    description: 'Kubernetes command-line tool',
-    minVersion: '1.27.0',
-    installCommand: 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x kubectl && sudo mv kubectl /usr/local/bin/',
-    installUrl: 'https://kubernetes.io/docs/tasks/tools/',
-    versionCommand: 'kubectl version --client',
-  },
+];
+
+// Additional prerequisites for running examples
+const examplePrerequisites: Prerequisite[] = [
   {
     name: 'kind',
     displayName: 'kind',
@@ -79,13 +100,74 @@ const prerequisites: Prerequisite[] = [
     versionCommand: 'kind version',
   },
   {
-    name: 'docker',
-    displayName: 'Docker',
-    description: 'Container runtime platform',
-    minVersion: '20.0.0',
-    installCommand: 'curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh',
-    installUrl: 'https://docs.docker.com/engine/install/',
-    versionCommand: 'docker version --format "{{.Client.Version}}"',
+    name: 'k3d',
+    displayName: 'k3d',
+    description: 'Lightweight wrapper to run k3s in Docker',
+    minVersion: '5.0.0',
+    installCommand: 'curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash',
+    installUrl: 'https://k3d.io/v5.4.6/#installation',
+    versionCommand: 'k3d version',
+  },
+  {
+    name: 'argo',
+    displayName: 'Argo CD CLI',
+    description: 'GitOps continuous delivery tool for Kubernetes',
+    minVersion: '2.8.0',
+    installCommand: 'curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd && rm argocd-linux-amd64',
+    installUrl: 'https://argo-cd.readthedocs.io/en/stable/cli_installation/',
+    versionCommand: 'argocd version --client',
+  },
+];
+
+// Prerequisites for building KubeStellar
+const buildPrerequisites: Prerequisite[] = [
+  {
+    name: 'make',
+    displayName: 'Make',
+    description: 'Build automation tool',
+    installCommand: 'sudo apt-get update && sudo apt-get install -y build-essential',
+    installUrl: 'https://www.gnu.org/software/make/',
+    versionCommand: 'make --version',
+  },
+  {
+    name: 'go',
+    displayName: 'Go',
+    description: 'Programming language for building KubeStellar',
+    minVersion: '1.21.0',
+    installCommand: 'curl -fsSL https://golang.org/dl/go1.21.6.linux-amd64.tar.gz | sudo tar -C /usr/local -xzf - && echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc',
+    installUrl: 'https://golang.org/doc/install',
+    versionCommand: 'go version',
+  },
+  {
+    name: 'ko',
+    displayName: 'ko',
+    description: 'Container image builder for Go applications',
+    minVersion: '0.14.0',
+    installCommand: 'go install github.com/google/ko@latest',
+    installUrl: 'https://ko.build/install/',
+    versionCommand: 'ko version',
+  },
+];
+
+// Define prerequisite categories
+const prerequisiteCategories: PrerequisiteCategory[] = [
+  {
+    title: "Core Prerequisites",
+    description: "Essential tools for using KubeStellar",
+    icon: <Server size={24} />,
+    prerequisites: corePrerequisites,
+  },
+  {
+    title: "Additional Prerequisites",
+    description: "Additional tools for running KubeStellar examples",
+    icon: <Terminal size={24} />,
+    prerequisites: examplePrerequisites,
+  },
+  {
+    title: "Build Prerequisites",
+    description: "Tools required for building KubeStellar from source",
+    icon: <Zap size={24} />,
+    prerequisites: buildPrerequisites,
   },
 ];
 
@@ -99,18 +181,28 @@ const platformInstallationScripts = {
 const faqData = [
   {
     id: 1,
-    question: "What are the minimum system requirements for KubeStellar?",
-    answer: "KubeStellar requires Docker (v20.0+), kubectl (v1.27+), and either kind (v0.20+) or k3d for local clusters. At least 4GB RAM and 2 CPU cores are recommended for smooth operation."
+    question: "What's the difference between Core, Additional, and Build prerequisites?",
+    answer: "Core prerequisites are essential for using KubeStellar. Additional prerequisites are needed for running examples and demos. Build prerequisites are only required if you plan to build KubeStellar from source code."
   },
   {
     id: 2,
+    question: "Can I automatically check if I have all prerequisites installed?",
+    answer: "Yes! Use the automated prerequisite check script: 'curl -fsSL https://raw.githubusercontent.com/kubestellar/kubestellar/refs/heads/main/scripts/check_pre_req.sh | bash'. This script will verify all prerequisites and provide installation guidance for missing tools."
+  },
+  {
+    id: 3,
+    question: "Do I need to install all prerequisites?",
+    answer: "For basic KubeStellar usage, you only need the Core prerequisites. Install Additional prerequisites if you want to run examples. Build prerequisites are only needed for development and building from source."
+  },
+  {
+    id: 4,
     question: "Can I use KubeStellar with existing Kubernetes clusters?",
     answer: "Yes! KubeStellar can manage existing Kubernetes clusters. You can connect your production clusters alongside local development clusters for unified multi-cluster management."
   },
   {
-    id: 3,
-    question: "How long does the installation process typically take?",
-    answer: "The installation usually takes 35-40 minutes depending on your internet connection and system performance. Most of this time is spent downloading container images and setting up the cluster."
+    id: 5,
+    question: "What are the minimum system requirements?",
+    answer: "KubeStellar requires at least 4GB RAM and 2 CPU cores. You'll need Docker (v20.0+), kubectl (v1.27+), and either kind (v0.20+) or k3d for local clusters."
   }
 ];
 
@@ -277,6 +369,27 @@ const PrerequisiteCard = ({ prerequisite }: { prerequisite: Prerequisite }) => {
   );
 };
 
+// Prerequisite category section component
+const PrerequisiteCategorySection = ({ category }: { category: PrerequisiteCategory }) => {
+  return (
+    <div className="mb-12">
+      <div className="mb-6">
+        <div className="mb-2 flex items-center">
+          <div className="mr-3 text-blue-400">{category.icon}</div>
+          <h3 className="text-xl font-bold text-white">{category.title}</h3>
+        </div>
+        <p className="ml-9 text-gray-400 text-sm">{category.description}</p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {category.prerequisites.map((prerequisite) => (
+          <PrerequisiteCard key={prerequisite.name} prerequisite={prerequisite} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // Platform selection component
 const PlatformSelector = ({
   platform,
@@ -371,14 +484,12 @@ const QuickInstallationPage = () => {
             <SectionHeader
               icon={<Server size={24} />}
               title="Prerequisites"
-              description="Install the following tools before setting up KubeStellar"
+              description="Install the required tools based on your use case"
             />
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {prerequisites.map((prerequisite) => (
-                <PrerequisiteCard key={prerequisite.name} prerequisite={prerequisite} />
-              ))}
-            </div>
+            {prerequisiteCategories.map((category, index) => (
+              <PrerequisiteCategorySection key={index} category={category} />
+            ))}
 
             {/* Single Guide Button */}
             <div className="text-center">
@@ -391,6 +502,68 @@ const QuickInstallationPage = () => {
                 <ExternalLink size={16} className="mr-2" />
                 View Detailed Installation Guides
               </a>
+            </div>
+          </AnimatedCard>
+
+          {/* Automated Prerequisites Check Section */}
+          <AnimatedCard className="mb-12 p-8">
+            <SectionHeader
+              icon={<CheckCircle2 size={24} />}
+              title="Automated Check of Prerequisites"
+              description="Use this script to automatically verify your system has all required tools"
+            />
+            
+            <div className="mb-6">
+              <h3 className="mb-4 text-lg font-medium text-white">
+                Run Prerequisites Check:
+              </h3>
+              <CodeBlock code="curl -fsSL https://raw.githubusercontent.com/kubestellar/kubestellar/refs/heads/main/scripts/check_pre_req.sh | bash" />
+            </div>
+
+            <div className="mb-6 rounded-lg border border-blue-500/30 bg-blue-500/10 p-6">
+              <div className="flex items-start">
+                <Info size={20} className="mr-3 mt-0.5 flex-shrink-0 text-blue-400" />
+                <div>
+                  <h4 className="mb-3 text-lg font-medium text-blue-300">
+                    About the Prerequisites Check Script
+                  </h4>
+                  <ul className="space-y-2 text-blue-200">
+                    <li className="flex items-start">
+                      <ChevronRight size={16} className="mr-2 mt-0.5 flex-shrink-0 text-blue-400" />
+                      Self-contained script suitable for "curl-to-bash" usage
+                    </li>
+                    <li className="flex items-start">
+                      <ChevronRight size={16} className="mr-2 mt-0.5 flex-shrink-0 text-blue-400" />
+                      Checks for prerequisite presence in your $PATH using the <code className="bg-gray-900/50 px-2 py-1 rounded text-blue-200 text-sm">which</code> command
+                    </li>
+                    <li className="flex items-start">
+                      <ChevronRight size={16} className="mr-2 mt-0.5 flex-shrink-0 text-blue-400" />
+                      Provides version and path information for present prerequisites
+                    </li>
+                    <li className="flex items-start">
+                      <ChevronRight size={16} className="mr-2 mt-0.5 flex-shrink-0 text-blue-400" />
+                      Shows installation information for missing prerequisites
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-6">
+              <div className="flex items-start">
+                <CheckCircle2 size={20} className="mr-3 mt-0.5 flex-shrink-0 text-emerald-400" />
+                <div>
+                  <h4 className="mb-3 text-lg font-medium text-emerald-300">
+                    For Specific Releases
+                  </h4>
+                  <p className="text-emerald-200 mb-3">
+                    To check prerequisites for a particular KubeStellar release, use the script from that specific release instead of the main branch.
+                  </p>
+                  <p className="text-emerald-200">
+                    <strong>Tip:</strong> Run this check before proceeding with the installation to ensure your system is properly configured.
+                  </p>
+                </div>
+              </div>
             </div>
           </AnimatedCard>
 
