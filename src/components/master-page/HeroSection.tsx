@@ -21,12 +21,12 @@ export default function HeroSection() {
           "bash <(curl -s \\",
           "    https://raw.githubusercontent.com/kubestellar/ \\",
           "    kubestellar/refs/tags/v0.27.2/scripts/ \\",
-          "    create-kubestellar-demo-env.sh) --platform kind"
+          "    create-kubestellar-demo-env.sh) --platform kind",
         ];
-        
+
         // Clear initial content
-        const divElements = typingText.querySelectorAll('div');
-        divElements.forEach(div => div.textContent = "");
+        const divElements = typingText.querySelectorAll("div");
+        divElements.forEach(div => (div.textContent = ""));
 
         let lineIndex = 0;
         let charIndex = 0;
@@ -35,7 +35,7 @@ export default function HeroSection() {
           if (lineIndex < lines.length) {
             const currentLine = lines[lineIndex];
             const currentDiv = divElements[lineIndex];
-            
+
             if (charIndex < currentLine.length) {
               if (currentDiv) {
                 currentDiv.textContent += currentLine.charAt(charIndex);
@@ -191,12 +191,20 @@ export default function HeroSection() {
                   <div className="command-line animate-command-typing">
                     <div className="flex flex-col space-y-1">
                       <div className="flex items-start">
-                        <span className="text-green-400 mr-2 flex-shrink-0">$</span>
+                        <span className="text-green-400 mr-2 flex-shrink-0">
+                          $
+                        </span>
                         <div className="typing-text text-blue-300 leading-relaxed text-xs sm:text-sm">
                           <div>bash &lt;(curl -s \</div>
-                          <div className="ml-4">https://raw.githubusercontent.com/kubestellar/ \</div>
-                          <div className="ml-4">kubestellar/refs/tags/v0.27.2/scripts/ \</div>
-                          <div className="ml-4">create-kubestellar-demo-env.sh) --platform kind</div>
+                          <div className="ml-4">
+                            https://raw.githubusercontent.com/kubestellar/ \
+                          </div>
+                          <div className="ml-4">
+                            kubestellar/refs/tags/v0.27.2/scripts/ \
+                          </div>
+                          <div className="ml-4">
+                            create-kubestellar-demo-env.sh) --platform kind
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -241,7 +249,9 @@ export default function HeroSection() {
 
                     {/* Final Success */}
                     <div className="output-line animate-slide-in-left [animation-delay:1.8s]">
-                      <span className="text-emerald-400 font-bold">SUCCESS</span>
+                      <span className="text-emerald-400 font-bold">
+                        SUCCESS
+                      </span>
                       <span className="text-gray-300 ml-4">
                         KubeStellar demo environment ready! Setup complete
                       </span>
