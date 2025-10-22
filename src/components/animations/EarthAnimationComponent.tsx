@@ -30,11 +30,11 @@ const Earth = ({ scale = 2.5, position = [0, 0, 0], rotation = [0, 0, 0] }) => {
   const earth = useGLTF("./planet/scene.gltf");
 
   return (
-    <primitive 
-      object={earth.scene} 
-      scale={scale} 
-      position={position} 
-      rotation={rotation} 
+    <primitive
+      object={earth.scene}
+      scale={scale}
+      position={position}
+      rotation={rotation}
     />
   );
 };
@@ -97,11 +97,11 @@ const EarthAnimation: React.FC<EarthAnimationProps> = ({
         shadows
         frameloop="demand"
         gl={{ preserveDrawingBuffer: true }}
-        camera={{ 
-          fov, 
-          near: 0.1, 
-          far: 200, 
-          position: cameraPosition 
+        camera={{
+          fov,
+          near: 0.1,
+          far: 200,
+          position: cameraPosition,
         }}
       >
         <Suspense fallback={<CustomLoader />}>
@@ -112,12 +112,8 @@ const EarthAnimation: React.FC<EarthAnimationProps> = ({
             maxPolarAngle={Math.PI / 2}
             minPolarAngle={Math.PI / 2}
           />
-          
-          <Earth 
-            scale={scale} 
-            position={position} 
-            rotation={rotation} 
-          />
+
+          <Earth scale={scale} position={position} rotation={rotation} />
         </Suspense>
       </Canvas>
     </div>
