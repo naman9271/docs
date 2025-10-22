@@ -25,8 +25,15 @@ const CanvasLoader = () => {
   );
 };
 
+// Props interface for the Earth component
+interface EarthProps {
+  scale?: number;
+  position?: [number, number, number];
+  rotation?: [number, number, number];
+}
+
 // Earth/Planet 3D model component
-const Earth = ({ scale = 2.5, position = [0, 0, 0], rotation = [0, 0, 0] }) => {
+const Earth: React.FC<EarthProps> = ({ scale = 2.5, position = [0, 0, 0], rotation = [0, 0, 0] }) => {
   const earth = useGLTF("./planet/scene.gltf");
 
   return (
