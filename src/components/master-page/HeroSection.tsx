@@ -3,7 +3,12 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { Link as IntlLink } from "@/i18n/navigation";
-import { GridLines, StarField, EarthAnimation, SectionDividers } from "../index";
+import {
+  GridLines,
+  StarField,
+  EarthAnimation,
+  SectionDividers,
+} from "../index";
 import StatCard from "../StatsCard";
 import { useTranslations } from "next-intl";
 
