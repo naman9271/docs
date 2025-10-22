@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GridLines, StarField } from "../index";
+import { GridLines, StarField, SectionDividers } from "../index";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -104,11 +104,8 @@ Google Groups: https://groups.google.com/g/kubestellar-dev`
       {/* Grid lines background */}
       <GridLines horizontalLines={21} verticalLines={15} />
 
-      {/* Background elements */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-b from-purple-500/10 to-transparent rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-t from-blue-500/10 to-transparent rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
-      </div>
+      {/* Section dividers */}
+      <SectionDividers />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-8 sm:mb-10 md:mb-12">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { GridLines, StarField } from "../index";
+import { GridLines, StarField, SectionDividers } from "../index";
 
 export default function AboutSection() {
   useEffect(() => {
@@ -103,9 +103,9 @@ export default function AboutSection() {
       {/* Grid lines background */}
       <GridLines horizontalLines={21} verticalLines={15} />
 
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute -top-50 -right-20 z-3 h-84 w-84 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 blur-[60px] flex-none order-3 grow-0"></div>
-      </div>
+      {/* Section dividers */}
+      <SectionDividers showTopRight={true} showBottomLeft={false} />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold text-white sm:text-[2.4rem]">

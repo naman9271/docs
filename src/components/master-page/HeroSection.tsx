@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { Link as IntlLink } from "@/i18n/navigation";
-import { GridLines, StarField, EarthAnimation } from "../index";
+import { GridLines, StarField, EarthAnimation, SectionDividers } from "../index";
 import StatCard from "../StatsCard";
 import { useTranslations } from "next-intl";
 
@@ -157,6 +157,9 @@ export default function HeroSection() {
         <div className="absolute inset-0">
           <GridLines verticalLines={15} horizontalLines={18} />
         </div>
+
+        {/* Section dividers */}
+        <SectionDividers />
 
         {/* Floating Data Particles */}
         <div className="absolute inset-0">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { GridLines, StarField } from "../index";
+import { GridLines, StarField, SectionDividers } from "../index";
 
 const Icon = ({
   path,
@@ -40,12 +40,8 @@ export default function GetStartedSection() {
       {/* Gridlines background */}
       <GridLines verticalLines={20} horizontalLines={30} />
 
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-2/5 left-2/11 w-[6rem] h-[6rem] bg-purple-500/10 rounded-full blur-[120px]"></div>
-
-        <div className="absolute top-4/5 left-1/2 w-[10rem] h-[10rem] bg-purple-500/5 rounded-full blur-[180px]"></div>
-        <div className="absolute -top-40 left-0 z-3 h-[16rem] w-[16rem] rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 blur-[60px] flex-none order-3 grow-0"></div>
-      </div>
+      {/* Section dividers */}
+      <SectionDividers />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center">

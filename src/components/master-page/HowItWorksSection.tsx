@@ -1,6 +1,6 @@
 "use client";
 
-import { GridLines, StarField } from "../index";
+import { GridLines, StarField, SectionDividers } from "../index";
 
 export default function HowItWorksSection() {
   return (
@@ -17,7 +17,9 @@ export default function HowItWorksSection() {
       {/* Grid lines background */}
       <GridLines horizontalLines={21} verticalLines={18} />
 
-      <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-blue-500/10 to-transparent"></div>
+      {/* Section dividers */}
+      <SectionDividers showTopRight={true} showBottomLeft={false} />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h2 className="text-3xl font-extrabold text-white sm:text-[2.4rem]">
