@@ -5,6 +5,7 @@ KubeStellar orchestrates your multi-cluster environment through a well-defined a
 ## 1. Set Up Your Environment
 
 ### Prerequisites and Core Infrastructure
+
 ```shell
 # Install required tools
 - kubectl, helm, docker, kind/k3d
@@ -23,8 +24,8 @@ KubeStellar orchestrates your multi-cluster environment through a well-defined a
 ```yaml
 # Example cluster labeling
 kubectl label managedcluster cluster1 \
-  location-group=edge \
-  name=cluster1
+location-group=edge \
+name=cluster1
 ```
 
 - Register WECs with the ITS using OCM
@@ -41,12 +42,12 @@ metadata:
   name: example-policy
 spec:
   clusterSelectors:
-  - matchLabels:
-      location-group: edge
-  downsync:
-  - objectSelectors:
     - matchLabels:
-      app.kubernetes.io/name: myapp
+        location-group: edge
+  downsync:
+    - objectSelectors:
+        - matchLabels:
+          app.kubernetes.io/name: myapp
 ```
 
 - Create BindingPolicy objects to specify:
@@ -70,6 +71,7 @@ spec:
 ```
 
 Supported deployment methods:
+
 - Direct kubectl apply
 - Helm charts
 - ArgoCD integration
@@ -86,14 +88,15 @@ KubeStellar provides comprehensive monitoring capabilities:
 - Handle cluster additions/removals dynamically
 
 ### Status Collection Options
+
 ```yaml
 # Enable detailed status collection
 spec:
   downsync:
-  - wantSingletonReportedState: true
-    objectSelectors:
-    - matchLabels:
-      app.kubernetes.io/name: myapp
+    - wantSingletonReportedState: true
+      objectSelectors:
+        - matchLabels:
+          app.kubernetes.io/name: myapp
 ```
 
 ## Real-World Usage Patterns

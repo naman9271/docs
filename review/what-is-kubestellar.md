@@ -34,11 +34,11 @@ KubeStellar's sophisticated workload placement system ensures optimal distributi
 Implement comprehensive governance through centralized policy enforcement:
 
 - **BindingPolicy System**: Define rules for workload placement and configuration
-- **Status Management**: 
+- **Status Management**:
   - Singleton status reporting for individual cluster monitoring
   - Combined status aggregation across clusters
 - **Custom Transforms**: Apply transformations to workloads during distribution
-- **Resilient Architecture**: 
+- **Resilient Architecture**:
   - Automatic recovery after disruptions
   - State reconciliation across clusters
   - Robust error handling

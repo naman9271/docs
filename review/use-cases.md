@@ -5,15 +5,18 @@ KubeStellar provides sophisticated multi-cluster workload management capabilitie
 ## 1. Declarative Multi-Cluster Workload Management
 
 ### Primary Use Case
+
 Deploy and manage Kubernetes workloads across multiple clusters using native Kubernetes objects without wrapping or bundling. KubeStellar's BindingPolicy system provides declarative control over workload placement and configuration.
 
 ### Key Features
+
 - Deploy native Kubernetes objects across clusters
 - Use label-based cluster selection for workload targeting
 - Maintain workload configurations in their original format
 - Centralized management through Workload Definition Spaces (WDS)
 
 ### Example Scenario
+
 ```yaml
 apiVersion: control.kubestellar.io/v1alpha1
 kind: BindingPolicy
@@ -21,18 +24,20 @@ metadata:
   name: app-deployment
 spec:
   clusterSelectors:
-  - matchLabels: {"environment": "production"}
+    - matchLabels: { "environment": "production" }
   downsync:
-  - objectSelectors:
-    - matchLabels: {"app.kubernetes.io/name": "myapp"}
+    - objectSelectors:
+        - matchLabels: { "app.kubernetes.io/name": "myapp" }
 ```
 
 ## 2. Custom Resource Distribution
 
 ### Primary Use Case
+
 Distribute and manage custom resources (CRDs) across multiple clusters while maintaining proper synchronization and lifecycle management.
 
 ### Key Features
+
 - Support for out-of-tree workload types
 - Automatic CRD synchronization
 - Flexible RBAC configuration
@@ -41,9 +46,11 @@ Distribute and manage custom resources (CRDs) across multiple clusters while mai
 ## 3. Advanced Status Management
 
 ### Primary Use Case
+
 Monitor and manage workload status across multiple clusters with options for both individual and aggregated status reporting.
 
 ### Key Features
+
 - Singleton status reporting for individual cluster monitoring
 - Combined status aggregation across clusters
 - Real-time status updates through OCM Status Add-On
@@ -52,9 +59,11 @@ Monitor and manage workload status across multiple clusters with options for bot
 ## 4. Helm Chart Distribution
 
 ### Primary Use Case
+
 Deploy and manage Helm charts across multiple clusters while maintaining chart metadata and release information.
 
 ### Key Features
+
 - Native Helm chart support
 - Consistent release management across clusters
 - Label-based chart distribution
@@ -63,9 +72,11 @@ Deploy and manage Helm charts across multiple clusters while maintaining chart m
 ## 5. Resilient Multi-Cluster Operations
 
 ### Primary Use Case
+
 Maintain reliable workload distribution and management even during control plane disruptions or network issues.
 
 ### Key Features
+
 - Resilient architecture with multiple spaces
 - Automatic recovery after disruptions
 - State reconciliation across clusters
@@ -74,9 +85,11 @@ Maintain reliable workload distribution and management even during control plane
 ## 6. Template-Based Customization
 
 ### Primary Use Case
+
 Customize workload configurations for different clusters while maintaining a single source of truth.
 
 ### Key Features
+
 - Support for template expansion
 - Cluster-specific customization
 - Property-based configuration
